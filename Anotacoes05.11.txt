@@ -1,0 +1,40 @@
+criar conexão com banco de dados
+	-Nova classe dentro de uma nova pasta:
+		-Data
+		 -AppDBContext.cs (acesso a tabelas, insert, ou buscar dados)
+
+baixar pacotes necessários:
+		(imagem)
+	FrameworkCore (8.0.3)
+	Core.SqlServer (8.0.3)
+	Core.Design (8.0.3) - criar migrações e através delas criar o banco de dados
+	Core.Tools (8.0.3)
+
+código:
+
+AppDBContext.cs:
+	public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
+		passa para o construtor da classe do Context que ele precisa receber opções e informações de conexão para fazer o serviço de meio de campo
+
+	 public DbSet<AutorModel> Autores { get; set; } - na execução, cada propriedade dentro do modelo, será transformada em uma coluna
+	 public DbSet<LivroModel> Livro { get; set; } - na execução, cada propriedade dentro do modelo, será transformada em uma coluna
+
+nova pasta Models:
+	AutorModel.cs - classe que é mapeada e utilizada como base para criação da tabela de Autor
+	LivroModel.cs
+
+REGRA - cada autor pode ter vários livros
+AutorModel.cs
+	 public ICollection<LivroModel> Livros { get; set; } - permite ter vários livros para um autor
+		O tipo dessa colection é "LivroModel", que é a classe criada
+	[JsonIgnore] - evita a lista de livros, para que na criação do autor, não tenha que inserir em seguida logo seus livros
+
+REGRA - um livro pode ter somente um autor
+LivroModel.cs
+	  public AutorModel Autor { get; set; }
+
+
+passando informações para o AppDBContext.cs:
+	appsetting.json - nele terá uma string de conexão, com todas as informações para conectar ao banco
+		ConnectionStrings
+			DefaultConnection - server=; database=; trusted_connection=true; trustservercertificate=true (função de cada um comentado no código)
