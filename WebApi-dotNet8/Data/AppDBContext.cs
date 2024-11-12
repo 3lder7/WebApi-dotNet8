@@ -5,8 +5,9 @@ namespace WebApi_dotNet8.Data
 {
     public class AppDBContext : DbContext
     {
-        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)//opções de conexão
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)//opções/informações de conexão
         {
+
         }
 
         //quando criar a conexão com banco de dados, algumas tabelas já serão criadas
