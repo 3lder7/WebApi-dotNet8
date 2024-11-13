@@ -31,7 +31,7 @@ namespace WebApi_dotNet8.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AutorId = table.Column<int>(type: "int", nullable: false)
+                    AutorId = table.Column<int>(type: "int", nullable: false)//relação de cada livro ter apenas um autor
                 },
                 constraints: table =>
                 {
